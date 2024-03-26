@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 class HttpHelper {
   static const String _baseUrl = "";
 
+  //TODO ADD URL
+
   static Future<Map<String, dynamic>> get(String endpoint) async {
     final response = await http.get(Uri.parse('$_baseUrl/$endpoint'));
     return _handleResponse(response);
