@@ -6,6 +6,8 @@ class HelperFunctions {
   static Color? getColor(String value) {
     if (value == 'Green') {
       return Colors.green;
+    } else if (value == 'Green') {
+      return Colors.green;
     } else if (value == 'Red') {
       return Colors.red;
     } else if (value == 'Blue') {
@@ -60,7 +62,10 @@ class HelperFunctions {
   }
 
   static void navigateToScreen(BuildContext context, Widget screen) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => screen),
+    );
   }
 
   static String truncateText(String text, int maxLength) {
@@ -101,11 +106,7 @@ class HelperFunctions {
     for (var i = 0; i < widgets.length; i += rowSize) {
       final rowChildren = widgets.sublist(
           i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
-      wrappedList.add(
-        Row(
-          children: rowChildren,
-        ),
-      );
+      wrappedList.add(Row(children: rowChildren));
     }
     return wrappedList;
   }
