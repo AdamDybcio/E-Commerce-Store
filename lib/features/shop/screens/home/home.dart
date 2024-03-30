@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
@@ -6,6 +7,7 @@ import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/sizes.dart';
 import 'widgets/home_appbar.dart';
 import 'widgets/home_categories.dart';
+import 'widgets/promo_slider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,6 +37,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(Sizes.defaultSpace),
+              child: PromoSlider(banners: [ImageStrings.promoBanner1, ImageStrings.promoBanner2, ImageStrings.promoBanner3]),
             ),
           ],
         ),
