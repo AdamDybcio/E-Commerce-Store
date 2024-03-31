@@ -1,6 +1,7 @@
 import 'package:ecommerce_store/common/styles/shadows.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_store/common/widgets/images/rounded_image.dart';
+import 'package:ecommerce_store/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/product_title_text.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
@@ -51,42 +52,37 @@ class ProductCardVertical extends StatelessWidget {
               ),
             ),
             const SizedBox(height: Sizes.spaceBtwItems / 2),
-            Padding(
-              padding: const EdgeInsets.only(left: Sizes.sm),
+            const Padding(
+              padding: EdgeInsets.only(left: Sizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ProductTitleText(title: 'Green Nike Air Shoes', smallSize: true),
-                  const SizedBox(height: Sizes.spaceBtwItems / 2),
-                  Row(
-                    children: [
-                      Text('Nike', overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.labelMedium),
-                      const SizedBox(width: Sizes.xs),
-                      const Icon(Iconsax.verify5, color: AppColors.primary, size: Sizes.iconXs),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const ProductPriceText(price: '35.0'),
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.dark,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(Sizes.cardRadiusMd),
-                            bottomRight: Radius.circular(Sizes.productImageRadius),
-                          ),
-                        ),
-                        child: const SizedBox(
-                          width: Sizes.iconLg * 1.2,
-                          height: Sizes.iconLg * 1.2,
-                          child: Center(child: Icon(Iconsax.add, color: AppColors.white)),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ProductTitleText(title: 'Green Nike Air Shoes', smallSize: true),
+                  SizedBox(height: Sizes.spaceBtwItems / 2),
+                  BrandTitleWithVerifiedIcon(title: 'Nike'),
                 ],
               ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Padding(padding: EdgeInsets.only(left: Sizes.sm), child: ProductPriceText(price: '35.0')),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.dark,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Sizes.cardRadiusMd),
+                      bottomRight: Radius.circular(Sizes.productImageRadius),
+                    ),
+                  ),
+                  child: const SizedBox(
+                    width: Sizes.iconLg * 1.2,
+                    height: Sizes.iconLg * 1.2,
+                    child: Center(child: Icon(Iconsax.add, color: AppColors.white)),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
