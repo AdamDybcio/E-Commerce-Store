@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showBackArrow
-            ? IconButton(onPressed: () => Get.back(), icon: Icon(Iconsax.arrow_left, color: isDark ? AppColors.light : AppColors.dark))
+            ? IconButton(onPressed: () => Get.back(), icon: Icon(Iconsax.arrow_left, color: isDark ? AppColors.white : AppColors.dark))
             : leadingIcon != null
                 ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon))
                 : null,
