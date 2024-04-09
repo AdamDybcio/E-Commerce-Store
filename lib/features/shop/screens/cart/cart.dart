@@ -1,10 +1,10 @@
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
-import 'package:ecommerce_store/common/widgets/texts/product_price_text.dart';
+import 'package:ecommerce_store/features/shop/screens/checkout/checkout.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../../../common/widgets/products/cart/add_remove_button.dart';
-import '../../../../common/widgets/products/cart/cart_item.dart';
+import 'widgets/cart_items.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -13,35 +13,13 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: Text('Cart', style: Theme.of(context).textTheme.headlineSmall), showBackArrow: true),
-      body: Padding(
-        padding: const EdgeInsets.all(Sizes.defaultSpace),
-        child: ListView.separated(
-          shrinkWrap: true,
-          separatorBuilder: (_, __) => const SizedBox(height: Sizes.spaceBtwSections),
-          itemCount: 10,
-          itemBuilder: (_, index) => const Column(
-            children: [
-              CartItem(),
-              SizedBox(height: Sizes.spaceBtwItems),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(width: 70),
-                      ProductQuantityWithAddRemoveButton(),
-                    ],
-                  ),
-                  ProductPriceText(price: '256'),
-                ],
-              ),
-            ],
-          ),
-        ),
+      body: const Padding(
+        padding: EdgeInsets.all(Sizes.defaultSpace),
+        child: CartItems(),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(Sizes.defaultSpace),
-        child: ElevatedButton(onPressed: () {}, child: const Text('Checkout \$256')),
+        child: ElevatedButton(onPressed: () => Get.to(() => const CheckoutScreen()), child: const Text('Checkout \$256')),
       ),
     );
   }
