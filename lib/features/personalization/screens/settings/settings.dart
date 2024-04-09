@@ -2,6 +2,7 @@ import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:ecommerce_store/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/features/personalization/screens/address/address.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,12 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   const SectionHeading(title: 'Account Settings', showActionButton: false),
                   const SizedBox(height: Sizes.spaceBtwItems),
-                  const SettingsMenuTile(icon: Iconsax.safe_home, title: 'My Addresses', subTitle: 'Set shopping delivery address'),
+                  SettingsMenuTile(
+                    icon: Iconsax.safe_home,
+                    title: 'My Addresses',
+                    subTitle: 'Set shopping delivery address',
+                    onTap: () => Get.to(() => const UserAddressScreen()),
+                  ),
                   const SettingsMenuTile(
                       icon: Iconsax.shopping_cart, title: 'My Cart', subTitle: 'Add, remove products and move to checkout'),
                   const SettingsMenuTile(icon: Iconsax.bag_tick, title: 'My Orders', subTitle: 'In-progress and Completed Orders'),
