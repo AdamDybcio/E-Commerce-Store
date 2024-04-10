@@ -3,6 +3,8 @@ import 'package:ecommerce_store/common/widgets/custom_shapes/containers/primary_
 import 'package:ecommerce_store/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/address.dart';
+import 'package:ecommerce_store/features/shop/screens/cart/cart.dart';
+import 'package:ecommerce_store/features/shop/screens/order/order.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +46,18 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Set shopping delivery address',
                     onTap: () => Get.to(() => const UserAddressScreen()),
                   ),
-                  const SettingsMenuTile(
-                      icon: Iconsax.shopping_cart, title: 'My Cart', subTitle: 'Add, remove products and move to checkout'),
-                  const SettingsMenuTile(icon: Iconsax.bag_tick, title: 'My Orders', subTitle: 'In-progress and Completed Orders'),
+                  SettingsMenuTile(
+                    icon: Iconsax.shopping_cart,
+                    title: 'My Cart',
+                    subTitle: 'Add, remove products and move to checkout',
+                    onTap: () => Get.to(() => const CartScreen()),
+                  ),
+                  SettingsMenuTile(
+                    icon: Iconsax.bag_tick,
+                    title: 'My Orders',
+                    subTitle: 'In-progress and Completed Orders',
+                    onTap: () => Get.to(() => const OrderScreen()),
+                  ),
                   const SettingsMenuTile(
                       icon: Iconsax.bank, title: 'Bank Account', subTitle: 'Withdraw balance to registered bank account'),
                   const SettingsMenuTile(icon: Iconsax.discount_shape, title: 'My Coupons', subTitle: 'List of all the discounted coupons'),
