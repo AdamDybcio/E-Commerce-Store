@@ -4,11 +4,13 @@ import 'package:ecommerce_store/common/widgets/custom_shapes/containers/search_c
 import 'package:ecommerce_store/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/features/shop/screens/brand/all_brands.dart';
 import 'package:ecommerce_store/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/widgets/brands/brand_card.dart';
 
@@ -42,7 +44,7 @@ class StoreScreen extends StatelessWidget {
                       const SizedBox(height: Sizes.spaceBtwItems),
                       const SearchContainer(text: 'Search in Store', showBorder: true, showBackground: false, padding: EdgeInsets.zero),
                       const SizedBox(height: Sizes.spaceBtwSections),
-                      SectionHeading(title: 'Featured Brands', onPressed: () {}),
+                      SectionHeading(title: 'Featured Brands', onPressed: () => Get.to(() => const AllBrandsScreen())),
                       const SizedBox(height: Sizes.spaceBtwItems / 1.5),
                       GridLayout(
                         itemCount: 4,
