@@ -1,5 +1,7 @@
+import 'package:ecommerce_store/features/shop/screens/all_products/all_products.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const PromoSlider(banners: [ImageStrings.promoBanner1, ImageStrings.promoBanner2, ImageStrings.promoBanner3]),
                   const SizedBox(height: Sizes.spaceBtwSections),
-                  SectionHeading(title: 'Popular Products', onPressed: () {}),
+                  SectionHeading(title: 'Popular Products', onPressed: () => Get.to(() => const AllProducts())),
                   const SizedBox(height: Sizes.spaceBtwItems),
                   GridLayout(itemCount: 2, itemBuilder: (_, index) => const ProductCardVertical()),
                 ],
