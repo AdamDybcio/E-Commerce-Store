@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/bindings/general_bindings.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'FlutterStore',
+      initialBinding: GeneralBindings(),
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
