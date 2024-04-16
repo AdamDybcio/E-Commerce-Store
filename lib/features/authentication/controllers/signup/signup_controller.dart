@@ -54,7 +54,7 @@ class SignupController extends GetxController {
       await userRepository.saveUserRecord(newUser);
       FullScreenLoader.stopLoading();
       Loaders.succcessSnackBar(title: 'Congratulations', message: 'Your account has been created! Verify email to continue.');
-      Get.to(() => const VerifyEmailScreen());
+      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       FullScreenLoader.stopLoading();
       Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());

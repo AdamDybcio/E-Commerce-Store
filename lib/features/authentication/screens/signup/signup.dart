@@ -5,6 +5,7 @@ import 'package:ecommerce_store/common/widgets/login_signup/form_divider.dart';
 import 'package:ecommerce_store/common/widgets/login_signup/social_buttons.dart';
 import 'package:ecommerce_store/utils/constants/text_strings.dart';
 
+import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../utils/constants/sizes.dart';
 import 'widgets/signup_form.dart';
 
@@ -14,7 +15,7 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const CustomAppBar(showBackArrow: true),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(Sizes.defaultSpace),

@@ -14,7 +14,7 @@ class Validator {
     // Regular expression for email validation
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
-    if (!emailRegExp.hasMatch(value)) {
+    if (!emailRegExp.hasMatch(value.trim())) {
       return 'Invalid email address.';
     }
 
