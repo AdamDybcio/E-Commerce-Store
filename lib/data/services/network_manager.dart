@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_store/utils/popups/loaders.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class NetworkManager extends GetxController {
@@ -32,8 +33,14 @@ class NetworkManager extends GetxController {
       } else {
         return true;
       }
-    } catch (e) {
+    } on PlatformException catch (_) {
       return false;
     }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _connectivitySubscription.cancel();
   }
 }

@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
+import '../../../../data/repositories/authentication/authentication_repository.dart';
 import '../profile/profile.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -58,13 +59,10 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'In-progress and Completed Orders',
                     onTap: () => Get.to(() => const OrderScreen()),
                   ),
-                  const SettingsMenuTile(
-                      icon: Iconsax.bank, title: 'Bank Account', subTitle: 'Withdraw balance to registered bank account'),
+                  const SettingsMenuTile(icon: Iconsax.bank, title: 'Bank Account', subTitle: 'Withdraw balance to registered bank account'),
                   const SettingsMenuTile(icon: Iconsax.discount_shape, title: 'My Coupons', subTitle: 'List of all the discounted coupons'),
-                  const SettingsMenuTile(
-                      icon: Iconsax.notification, title: 'Notifications', subTitle: 'Set any kind of notification message'),
-                  const SettingsMenuTile(
-                      icon: Iconsax.security_card, title: 'Account Privacy', subTitle: 'Manage data usage and connected accounts'),
+                  const SettingsMenuTile(icon: Iconsax.notification, title: 'Notifications', subTitle: 'Set any kind of notification message'),
+                  const SettingsMenuTile(icon: Iconsax.security_card, title: 'Account Privacy', subTitle: 'Manage data usage and connected accounts'),
                   const SizedBox(height: Sizes.spaceBtwSections),
                   const SectionHeading(title: 'App Settings', showActionButton: false),
                   const SizedBox(height: Sizes.spaceBtwItems),
@@ -90,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: Sizes.spaceBtwSections),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(onPressed: () {}, child: const Text('Logout')),
+                    child: OutlinedButton(onPressed: () => AuthenticationRepository.instance.logout(), child: const Text('Logout')),
                   ),
                   const SizedBox(height: Sizes.spaceBtwSections * 2.5),
                 ],
