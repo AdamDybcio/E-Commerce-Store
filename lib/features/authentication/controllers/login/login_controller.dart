@@ -1,5 +1,6 @@
 import 'package:ecommerce_store/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerce_store/data/services/network_manager.dart';
+import 'package:ecommerce_store/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_store/utils/popups/loaders.dart';
@@ -14,6 +15,7 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final userController = Get.put(UserController());
 
   @override
   void onInit() {
@@ -47,6 +49,31 @@ class LoginController extends GetxController {
       final userCredentials = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       FullScreenLoader.stopLoading();
+      AuthenticationRepository.instance.screenRedirect();
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+      Loaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+    }
+  }
+
+  Future<void> googleSignIn() async {
+    try {
+      FullScreenLoader.openLoadingDialog('Logging you in...', ImageStrings.docerAnimation);
+
+      final isConnected = await NetworkManager.instance.isConnected();
+
+      if (!isConnected) {
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      // ignore: unused_local_variable
+      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+
+      await userController.saveUserRecord(userCredentials);
+
+      FullScreenLoader.stopLoading();
+
       AuthenticationRepository.instance.screenRedirect();
     } catch (e) {
       FullScreenLoader.stopLoading();

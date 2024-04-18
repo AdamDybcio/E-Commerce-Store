@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/features/authentication/screens/password_configuration/reset_password.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/constants/text_strings.dart';
@@ -11,7 +12,7 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const CustomAppBar(showBackArrow: true),
       body: Padding(
         padding: const EdgeInsets.all(Sizes.defaultSpace),
         child: Column(
