@@ -44,6 +44,9 @@ class LoginController extends GetxController {
       if (rememberMe.value) {
         localStorage.write("REMEMBER_ME_EMAIL", email.text.trim());
         localStorage.write("REMEMBER_ME_PASSWORD", password.text.trim());
+      } else {
+        localStorage.remove("REMEMBER_ME_EMAIL");
+        localStorage.remove("REMEMBER_ME_PASSWORD");
       }
       // ignore: unused_local_variable
       final userCredentials = await AuthenticationRepository.instance.loginWithEmailAndPassword(email.text.trim(), password.text.trim());
@@ -71,6 +74,9 @@ class LoginController extends GetxController {
       final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
 
       await userController.saveUserRecord(userCredentials);
+
+      localStorage.remove("REMEMBER_ME_EMAIL");
+      localStorage.remove("REMEMBER_ME_PASSWORD");
 
       FullScreenLoader.stopLoading();
 

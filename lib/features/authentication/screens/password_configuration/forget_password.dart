@@ -1,7 +1,8 @@
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
-import 'package:ecommerce_store/features/authentication/screens/password_configuration/reset_password.dart';
+import 'package:ecommerce_store/features/authentication/controllers/forget_password/forget_password_controller.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/constants/text_strings.dart';
+import 'package:ecommerce_store/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,6 +12,7 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: const CustomAppBar(showBackArrow: true),
       body: Padding(
@@ -28,17 +30,22 @@ class ForgetPassword extends StatelessWidget {
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: Sizes.spaceBtwSections * 2),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: TextStrings.email,
-                prefixIcon: Icon(Iconsax.direct_right),
+            Form(
+              key: controller.forgetPasswordFormKey,
+              child: TextFormField(
+                controller: controller.email,
+                validator: Validator.validateEmail,
+                decoration: const InputDecoration(
+                  labelText: TextStrings.email,
+                  prefixIcon: Icon(Iconsax.direct_right),
+                ),
               ),
             ),
             const SizedBox(height: Sizes.spaceBtwSections),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.off(() => const ResetPassword()),
+                onPressed: () => controller.sendPasswordResetEmail(),
                 child: const Text(TextStrings.submit),
               ),
             ),
