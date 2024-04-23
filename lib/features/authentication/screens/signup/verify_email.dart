@@ -1,5 +1,5 @@
 import 'package:ecommerce_store/data/repositories/authentication/authentication_repository.dart';
-import 'package:ecommerce_store/features/authentication/controllers/signup/verify_email_controller.dart';
+import 'package:ecommerce_store/features/authentication/controllers/verify_email/verify_email_controller.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';

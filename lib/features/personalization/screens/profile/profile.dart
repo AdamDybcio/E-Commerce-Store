@@ -1,11 +1,14 @@
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/common/widgets/images/circular_image.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import 'widgets/change_name.dart';
 import 'widgets/profile_menu.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -13,6 +16,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return Scaffold(
       appBar: const CustomAppBar(
         title: Text('Profile'),
@@ -37,23 +41,23 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: Sizes.spaceBtwItems),
               const SectionHeading(title: 'Profile Information', showActionButton: false),
               const SizedBox(height: Sizes.spaceBtwItems),
-              ProfileMenu(title: 'Name', value: 'Jan Kowalski', onPressed: () {}),
-              ProfileMenu(title: 'Username', value: 'jan_kowalski', onPressed: () {}),
+              ProfileMenu(title: 'Name', value: controller.user.value.fullName, onPressed: () => Get.to(() => const ChangeName())),
+              ProfileMenu(title: 'Username', value: controller.user.value.username, onPressed: () {}),
               const SizedBox(height: Sizes.spaceBtwItems),
               const Divider(),
               const SizedBox(height: Sizes.spaceBtwItems),
               const SectionHeading(title: 'Personal Information', showActionButton: false),
               const SizedBox(height: Sizes.spaceBtwItems),
-              ProfileMenu(onPressed: () {}, title: 'User ID', value: '45689', icon: Iconsax.copy),
-              ProfileMenu(onPressed: () {}, title: 'E-mail', value: 'jan.kowalski'),
-              ProfileMenu(onPressed: () {}, title: 'Phone Number', value: '+48 123 123 123'),
+              ProfileMenu(onPressed: () {}, title: 'User ID', value: controller.user.value.id, icon: Iconsax.copy),
+              ProfileMenu(onPressed: () {}, title: 'E-mail', value: controller.user.value.email),
+              ProfileMenu(onPressed: () {}, title: 'Phone Number', value: controller.user.value.phoneNumber),
               ProfileMenu(onPressed: () {}, title: 'Gender', value: 'Male'),
               ProfileMenu(onPressed: () {}, title: 'Date of Birth', value: '28 Jan, 2002'),
               const Divider(),
               const SizedBox(height: Sizes.spaceBtwItems),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.deleteAccountWarningPopup(),
                   child: const Text('Close Account', style: TextStyle(color: Colors.red)),
                 ),
               ),
