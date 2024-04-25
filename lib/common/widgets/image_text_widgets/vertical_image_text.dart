@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/common/widgets/images/circular_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -12,12 +13,14 @@ class VerticalImageText extends StatelessWidget {
     this.textColor = AppColors.white,
     this.backgroundColor,
     this.onTap,
+    this.isNetworkImage = true,
   });
 
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +32,13 @@ class VerticalImageText extends StatelessWidget {
         padding: const EdgeInsets.only(right: Sizes.spaceBtwItems),
         child: Column(
           children: [
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(Sizes.sm),
-              decoration: BoxDecoration(
-                color: backgroundColor ?? (dark ? AppColors.black : AppColors.white),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Center(
-                child: Image(
-                    image: AssetImage(image),
-                    fit: BoxFit.cover,
-                    color: backgroundColor == null ? (dark ? AppColors.light : AppColors.dark) : AppColors.dark),
-              ),
+            CircularImage(
+              image: image,
+              fit: BoxFit.fitWidth,
+              padding: Sizes.sm * 1.4,
+              isNetworkImage: isNetworkImage,
+              backgroundColor: backgroundColor,
+              overlayColor: dark ? AppColors.light : AppColors.dark,
             ),
             const SizedBox(height: Sizes.spaceBtwItems / 2),
             SizedBox(
@@ -52,6 +48,7 @@ class VerticalImageText extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
               ),
             ),
           ],
