@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../common/widgets/brands/brand_show_case.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../models/product_model.dart';
 
 class CategoryTab extends StatelessWidget {
   const CategoryTab({super.key, required this.category});
@@ -27,7 +28,7 @@ class CategoryTab extends StatelessWidget {
               const SizedBox(height: Sizes.spaceBtwItems),
               SectionHeading(title: 'You might like', showActionButton: true, onPressed: () {}),
               const SizedBox(height: Sizes.spaceBtwItems),
-              GridLayout(itemCount: 4, itemBuilder: (_, index) => const ProductCardVertical()),
+              GridLayout(itemCount: 4, itemBuilder: (_, index) => ProductCardVertical(product: ProductModel.empty())),
               const SizedBox(height: Sizes.spaceBtwSections),
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -29,7 +30,7 @@ class SortableProducts extends StatelessWidget {
         const SizedBox(height: Sizes.spaceBtwSections),
         GridLayout(
           itemCount: 8,
-          itemBuilder: (_, index) => const ProductCardVertical(),
+          itemBuilder: (_, index) => ProductCardVertical(product: ProductModel.empty()),
         ),
       ],
     );

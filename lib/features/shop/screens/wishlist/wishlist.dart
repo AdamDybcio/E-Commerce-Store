@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../navigation_menu.dart';
+import '../../models/product_model.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
@@ -29,7 +30,7 @@ class FavoriteScreen extends StatelessWidget {
           padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             children: [
-              GridLayout(itemCount: 6, itemBuilder: (_, index) => const ProductCardVertical()),
+              GridLayout(itemCount: 6, itemBuilder: (_, index) => ProductCardVertical(product: ProductModel.empty())),
             ],
           ),
         ),
