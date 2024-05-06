@@ -1,6 +1,5 @@
 import 'package:ecommerce_store/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:ecommerce_store/features/shop/screens/all_products/all_products.dart';
-import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(Sizes.defaultSpace),
               child: Column(
                 children: [
-                  const PromoSlider(banners: [ImageStrings.promoBanner1, ImageStrings.promoBanner2, ImageStrings.promoBanner3]),
+                  const PromoSlider(),
                   const SizedBox(height: Sizes.spaceBtwSections),
                   SectionHeading(title: 'Popular Products', onPressed: () => Get.to(() => const AllProducts())),
                   const SizedBox(height: Sizes.spaceBtwItems),
