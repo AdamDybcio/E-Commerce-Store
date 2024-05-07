@@ -51,7 +51,15 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const PromoSlider(),
                   const SizedBox(height: Sizes.spaceBtwSections),
-                  SectionHeading(title: 'Popular Products', onPressed: () => Get.to(() => const AllProducts())),
+                  SectionHeading(
+                    title: 'Popular Products',
+                    onPressed: () => Get.to(
+                      () => AllProducts(
+                        title: 'Popular Products',
+                        futureMethod: controller.fetchAllFeaturedProducts(),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: Sizes.spaceBtwItems),
                   Obx(() {
                     if (controller.isLoading.value) return const VerticalProductShimmer();
