@@ -47,15 +47,16 @@ class ProductCardVertical extends StatelessWidget {
               child: Stack(
                 children: [
                   Center(child: RoundedImage(imageUrl: product.thumbnail, applyImageRadius: true, isNetworkImage: true)),
-                  Positioned(
-                    top: 12,
-                    child: RoundedContainer(
-                      radius: Sizes.sm,
-                      backgroundColor: AppColors.secondary.withOpacity(0.8),
-                      padding: const EdgeInsets.symmetric(horizontal: Sizes.sm, vertical: Sizes.xs),
-                      child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: AppColors.black)),
+                  if (salePercentage != null)
+                    Positioned(
+                      top: 12,
+                      child: RoundedContainer(
+                        radius: Sizes.sm,
+                        backgroundColor: AppColors.secondary.withOpacity(0.8),
+                        padding: const EdgeInsets.symmetric(horizontal: Sizes.sm, vertical: Sizes.xs),
+                        child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: AppColors.black)),
+                      ),
                     ),
-                  ),
                   const Positioned(top: 0, right: 0, child: CircularIcon(icon: Iconsax.heart5, color: Colors.red)),
                 ],
               ),

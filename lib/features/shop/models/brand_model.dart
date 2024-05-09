@@ -47,10 +47,11 @@ class BrandModel {
         id: document.id,
         name: data['Name'] ?? '',
         image: data['Image'] ?? '',
-        productsCount: int.parse((data['ProductsCount'] ?? 0).toString()),
+        productsCount: data['ProductsCount'] ?? '',
         isFeatured: data['IsFeatured'] ?? false,
       );
+    } else {
+      return BrandModel.empty();
     }
-    return BrandModel.empty();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/features/shop/models/brand_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -24,7 +25,7 @@ class BrandShowcase extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: Sizes.spaceBtwItems),
       child: Column(
         children: [
-          const BrandCard(showBorder: false),
+          BrandCard(showBorder: false, brand: BrandModel.empty()),
           const SizedBox(height: Sizes.spaceBtwItems),
           Row(
             children: images.map((image) => brandTopProductImageWidget(image, context)).toList(),

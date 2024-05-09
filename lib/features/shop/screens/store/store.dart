@@ -4,8 +4,10 @@ import 'package:ecommerce_store/common/widgets/custom_shapes/containers/search_c
 import 'package:ecommerce_store/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/features/shop/controllers/brand_controller.dart';
 import 'package:ecommerce_store/features/shop/controllers/category_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/brand/all_brands.dart';
+import 'package:ecommerce_store/features/shop/screens/brand/brand_products.dart';
 import 'package:ecommerce_store/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/widgets/brands/brand_card.dart';
+import '../../../../common/widgets/shimmers/brands_shimmer.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -21,6 +24,7 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = CategoryController.instance.featuredCategories;
+    final brandController = Get.put(BrandController());
     return DefaultTabController(
       length: categories.length,
       child: Scaffold(
@@ -48,11 +52,23 @@ class StoreScreen extends StatelessWidget {
                       const SizedBox(height: Sizes.spaceBtwSections),
                       SectionHeading(title: 'Featured Brands', onPressed: () => Get.to(() => const AllBrandsScreen())),
                       const SizedBox(height: Sizes.spaceBtwItems / 1.5),
-                      GridLayout(
-                        itemCount: 4,
-                        mainAxisExtent: 80,
-                        itemBuilder: (_, index) {
-                          return const BrandCard(showBorder: false);
+                      Obx(
+                        () {
+                          if (brandController.isLoading.value) return const CustomBrandsShimmer();
+
+                          if (brandController.featuredBrands.isEmpty) {
+                            return Center(child: Text('No Data Found!', style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white)));
+                          }
+
+                          return GridLayout(
+                            itemCount: brandController.featuredBrands.length,
+                            mainAxisExtent: 80,
+                            itemBuilder: (_, index) {
+                              final brand = brandController.featuredBrands[index];
+
+                              return BrandCard(showBorder: true, brand: brand, onTap: () => Get.to(() => BrandProducts(brand: brand)));
+                            },
+                          );
                         },
                       ),
                     ],
