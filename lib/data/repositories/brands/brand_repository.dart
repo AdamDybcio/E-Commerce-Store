@@ -29,4 +29,26 @@ class BrandRepository extends GetxController {
       throw 'Something went wrong while fetching Brands.';
     }
   }
+
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
+    try {
+      QuerySnapshot brandCategoryQuery = await _db.collection('BrandCategory').where('categoryId', isEqualTo: categoryId).get();
+
+      List<String> brandIds = brandCategoryQuery.docs.map((doc) => doc['brandId'] as String).toList();
+
+      final brandsQuery = await _db.collection('Brands').where(FieldPath.documentId, whereIn: brandIds).limit(2).get();
+
+      List<BrandModel> brands = brandsQuery.docs.map((doc) => BrandModel.fromSnapshot(doc)).toList();
+
+      return brands;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong while fetching Brands.';
+    }
+  }
 }

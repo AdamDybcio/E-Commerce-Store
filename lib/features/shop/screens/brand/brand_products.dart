@@ -26,7 +26,7 @@ class BrandProducts extends StatelessWidget {
               BrandCard(showBorder: true, brand: brand),
               const SizedBox(height: Sizes.spaceBtwSections),
               FutureBuilder(
-                  future: controller.getBrandProducts(brand.id),
+                  future: controller.getBrandProducts(brandId: brand.id),
                   builder: (context, snapshot) {
                     const loader = VerticalProductShimmer();
 
