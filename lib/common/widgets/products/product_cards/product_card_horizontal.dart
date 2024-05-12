@@ -1,5 +1,6 @@
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_store/common/widgets/images/rounded_image.dart';
+import 'package:ecommerce_store/common/widgets/products/favourite_icon/favourite_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/product_price_text.dart';
 import 'package:ecommerce_store/common/widgets/texts/product_title_text.dart';
@@ -8,7 +9,6 @@ import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductCardHorizontal extends StatelessWidget {
@@ -30,9 +30,27 @@ class ProductCardHorizontal extends StatelessWidget {
             height: 120,
             padding: const EdgeInsets.all(Sizes.sm),
             backgroundColor: dark ? AppColors.dark : AppColors.white,
-            child: const Stack(
+            child: Stack(
               children: [
-                RoundedImage(imageUrl: ImageStrings.productImage1, applyImageRadius: true),
+                const SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: RoundedImage(imageUrl: ImageStrings.productImage1, applyImageRadius: true),
+                ),
+                Positioned(
+                  top: 12,
+                  child: RoundedContainer(
+                    radius: Sizes.sm,
+                    backgroundColor: AppColors.secondary.withOpacity(0.8),
+                    padding: const EdgeInsets.symmetric(horizontal: Sizes.sm, vertical: Sizes.xs),
+                    child: Text('25%', style: Theme.of(context).textTheme.labelLarge!.apply(color: AppColors.black)),
+                  ),
+                ),
+                const Positioned(
+                  top: 0,
+                  right: 0,
+                  child: FavouriteIcon(productId: ''),
+                ),
               ],
             ),
           ),

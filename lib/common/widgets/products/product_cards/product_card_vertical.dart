@@ -14,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../icons/circular_icon.dart';
 import '../../texts/product_price_text.dart';
+import '../favourite_icon/favourite_icon.dart';
 
 class ProductCardVertical extends StatelessWidget {
   const ProductCardVertical({super.key, required this.product});
@@ -57,7 +57,7 @@ class ProductCardVertical extends StatelessWidget {
                         child: Text('$salePercentage%', style: Theme.of(context).textTheme.labelLarge!.apply(color: AppColors.black)),
                       ),
                     ),
-                  const Positioned(top: 0, right: 0, child: CircularIcon(icon: Iconsax.heart5, color: Colors.red)),
+                  Positioned(top: 0, right: 0, child: FavouriteIcon(productId: product.id)),
                 ],
               ),
             ),
