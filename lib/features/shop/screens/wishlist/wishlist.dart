@@ -19,7 +19,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = FavouritesController.instance;
+    final controller = Get.isRegistered<FavouritesController>() ? FavouritesController.instance : Get.put(FavouritesController());
     return Scaffold(
       appBar: CustomAppBar(
         title: Text('Wishlist', style: Theme.of(context).textTheme.headlineMedium),
