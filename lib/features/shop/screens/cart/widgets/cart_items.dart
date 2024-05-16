@@ -1,4 +1,6 @@
+import 'package:ecommerce_store/features/shop/controllers/product/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../common/widgets/products/cart/add_remove_button.dart';
 import '../../../../../common/widgets/products/cart/cart_item.dart';
@@ -15,28 +17,41 @@ class CartItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      separatorBuilder: (_, __) => const SizedBox(height: Sizes.spaceBtwSections),
-      itemCount: 2,
-      itemBuilder: (_, index) => Column(
-        children: [
-          const CartItem(),
-          if (showAddRemoveButtons) const SizedBox(height: Sizes.spaceBtwItems),
-          if (showAddRemoveButtons)
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final controller = CartController.instance;
+    return Obx(
+      () => ListView.separated(
+        shrinkWrap: true,
+        separatorBuilder: (_, __) => const SizedBox(height: Sizes.spaceBtwSections),
+        itemCount: controller.cartItems.length,
+        itemBuilder: (_, index) => Obx(
+          () {
+            final item = controller.cartItems[index];
+
+            return Column(
               children: [
-                Row(
-                  children: [
-                    SizedBox(width: 70),
-                    ProductQuantityWithAddRemoveButton(),
-                  ],
-                ),
-                ProductPriceText(price: '256'),
+                CartItem(cartItem: item),
+                if (showAddRemoveButtons) const SizedBox(height: Sizes.spaceBtwItems),
+                if (showAddRemoveButtons)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const SizedBox(width: 70),
+                          ProductQuantityWithAddRemoveButton(
+                            quantity: item.quantity,
+                            add: () => controller.addOneToCart(item),
+                            remove: () => controller.removeOneFromCart(item),
+                          ),
+                        ],
+                      ),
+                      ProductPriceText(price: (item.price * item.quantity).toStringAsFixed(1)),
+                    ],
+                  ),
               ],
-            ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -12,10 +12,10 @@ import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../texts/product_price_text.dart';
 import '../favourite_icon/favourite_icon.dart';
+import 'product_card_add_to_cart_button.dart';
 
 class ProductCardVertical extends StatelessWidget {
   const ProductCardVertical({super.key, required this.product});
@@ -95,20 +95,7 @@ class ProductCardVertical extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.dark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(Sizes.cardRadiusMd),
-                      bottomRight: Radius.circular(Sizes.productImageRadius),
-                    ),
-                  ),
-                  child: const SizedBox(
-                    width: Sizes.iconLg * 1.2,
-                    height: Sizes.iconLg * 1.2,
-                    child: Center(child: Icon(Iconsax.add, color: AppColors.white)),
-                  ),
-                ),
+                ProductCardAddToCartButton(product: product),
               ],
             ),
           ],
