@@ -1,7 +1,12 @@
+import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_store/data/repositories/address/address_repository.dart';
 import 'package:ecommerce_store/data/services/network_manager.dart';
 import 'package:ecommerce_store/features/personalization/models/address_model.dart';
+import 'package:ecommerce_store/features/personalization/screens/address/add_new_address.dart';
+import 'package:ecommerce_store/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
+import 'package:ecommerce_store/utils/constants/sizes.dart';
+import 'package:ecommerce_store/utils/helpers/cloud_helper_functions.dart';
 import 'package:ecommerce_store/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_store/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +37,46 @@ class AddressController extends GetxController {
       Loaders.errorSnackBar(title: 'Addresses not found', message: e.toString());
       return [];
     }
+  }
+
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (_) => Container(
+        padding: const EdgeInsets.all(Sizes.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SectionHeading(title: 'Select Address'),
+            FutureBuilder(
+              future: getAllUserAddresses(),
+              builder: (_, snapshot) {
+                final response = CloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+
+                if (response != null) return response;
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (_, index) => SingleAddress(
+                    address: snapshot.data![index],
+                    onTap: () async {
+                      await selectAddress(snapshot.data![index]);
+                      Get.back();
+                    },
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: Sizes.defaultSpace * 2),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(onPressed: () => Get.to(() => const AddNewAddressScreen()), child: const Text('Add new address')),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future selectAddress(AddressModel newSelectedAddress) async {

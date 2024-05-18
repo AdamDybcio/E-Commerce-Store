@@ -1,18 +1,19 @@
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:ecommerce_store/common/widgets/success_screen/success_screen.dart';
+import 'package:ecommerce_store/features/shop/controllers/product/cart_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:ecommerce_store/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:ecommerce_store/features/shop/screens/checkout/widgets/billing_amount_section.dart';
-import 'package:ecommerce_store/navigation_menu.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
-import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
+import 'package:ecommerce_store/utils/helpers/pricing_calculator.dart';
+import 'package:ecommerce_store/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/widgets/products/cart/coupon_widget.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../controllers/product/order_controller.dart';
 import 'widgets/billing_payment_section.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -20,6 +21,12 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = CartController.instance;
+    final subTotal = cartController.totalCartPrice.value;
+
+    final orderController = Get.put(OrderController());
+    final totalAmount = PricingCalculator.calculateTotalPrice(subTotal, 'US');
+
     final dark = HelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: CustomAppBar(showBackArrow: true, title: Text('Order Review', style: Theme.of(context).textTheme.headlineSmall)),
@@ -55,15 +62,10 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(Sizes.defaultSpace),
         child: ElevatedButton(
-            onPressed: () => Get.to(
-                  () => SuccessScreen(
-                    image: ImageStrings.successfulPaymentIcon,
-                    title: 'Payment Success!',
-                    subtitle: 'Your item will be shipped soon!',
-                    onPressed: () => Get.offAll(() => const NavigationMenu()),
-                  ),
-                ),
-            child: const Text('Checkout \$268.0')),
+            onPressed: subTotal > 0
+                ? () => orderController.processOrder(totalAmount)
+                : () => Loaders.warningSnackBar(title: 'Empty Cart', message: 'Add items in the cart in order to proceed.'),
+            child: Text('Checkout \$$totalAmount')),
       ),
     );
   }
