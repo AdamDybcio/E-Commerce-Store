@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/format_exceptions.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
+import '../../services/firebase_storage_service.dart';
 
 class BrandRepository extends GetxController {
   static BrandRepository get instance => Get.find();
@@ -49,6 +50,28 @@ class BrandRepository extends GetxController {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong while fetching Brands.';
+    }
+  }
+
+  Future<void> uploadDummyData(List<BrandModel> brands) async {
+    try {
+      final storage = Get.put(CustomFirebaseStorageService());
+
+      for (var brand in brands) {
+        final file = await storage.getImageDataFromAssets(brand.image);
+
+        final url = await storage.uploadImageData('Brands', file, brand.name);
+
+        brand.image = url;
+
+        await _db.collection('Brands').doc(brand.id).set(brand.toJson());
+      }
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
     }
   }
 }
